@@ -1,0 +1,40 @@
+[package]
+name = "obws"
+version = "0.13.0"
+authors = ["Dominik Nakamura <dnaka91@gmail.com>"]
+edition = "2021"
+rust-version = "1.68"
+license = "MIT"
+readme = "README.md"
+description = "The obws (obvious) remote control library for OBS."
+homepage = "https://github.com/dnaka91/obws"
+repository = "https://github.com/dnaka91/obws"
+categories = ["api-bindings", "web-programming"]
+keywords = ["async", "obs", "obs-websocket", "remote-control", "tokio"]
+include = ["examples/**/*", "tests/**/*", "src/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
+
+[package.metadata.docs.rs]
+features = ["events", "tls"]
+
+[dependencies]
+
+[dev-dependencies]
+anyhow = "1.0.89"
+dotenvy = "0.15.7"
+serde_test = "1.0.177"
+tokio = { version = "1.38.1", features = ["fs", "macros", "rt-multi-thread", "time"] }
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+
+[features]
+default = []
+test-integration = []
+events = ["dep:async-stream"]
+tls = ["tokio-tungstenite/rustls-tls-webpki-roots"]
+
+[[example]]
+name = "events"
+required-features = ["events"]
+
+[[test]]
+name = "integration"
+required-features = ["events"]
